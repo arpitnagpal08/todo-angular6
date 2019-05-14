@@ -1,0 +1,20 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+}
+
+.tasks-container {
+  display: inline-block;
+  li {
+    list-style-type: decimal;
+    text-align: left;
+  }
+}
+
+.tasks {
+  cursor: pointer;
+
+  &:hover {
+    color: #ccc;
+  }
+}

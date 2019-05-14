@@ -1,3 +1,44 @@
-<p>
-  dashboard works!
-</p>
+<div class="row outer-container mt-5">
+  <div class="col-md-6">
+    <form #tasksForm="ngForm" action="" (ngSubmit)="onTasksSubmit()">
+      <div class="row">
+        <div class="form-group col-md-3">
+          <input type="text" placeholder="Enter title" name="task" id="task" class="form-control" #task="ngModel" [(ngModel)]="tasksModel.title" [class.is-invalid]="task.invalid && task.touched" [class.is-valid]="task.valid && task.touched" required />
+        </div>
+        <div class="form-group col-md-7">
+          <input type="text" placeholder="Enter description" name="description" id="description" class="form-control" #description="ngModel" [(ngModel)]="tasksModel.description" [class.is-invalid]="description.invalid && description.touched" [class.is-valid]="description.valid && description.touched" required />
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-block btn-primary" [disabled]="tasksForm.form.invalid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row" *ngIf="filtersLoaded | async; else else_block">
+  <div class="col-md-6 offset-md-3">
+    <ul class="tasks-container">
+      <li class="tasks mb-3" (click)="onTasksClick(task.id)" *ngFor="let task of tasks">
+        <h5>
+          {{ task.title }}
+        </h5>
+        <p>
+          {{ task.description }}
+        </p>
+      </li>
+    </ul>        
+  </div>
+</div>
+
+<ng-template #else_block>
+    <div class="loader_custom">
+      <div class="loader">
+        <div class="snippet">
+          <div class="stage">
+            <div class="dot-spin"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
