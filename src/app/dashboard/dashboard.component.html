@@ -1,3 +1,87 @@
-<p>
-  dashboard works!
-</p>
+<div class="row outer-container mt-5">
+  <div class="col-md-6">
+    <h2 class="text-center">
+      Good Evening, Arpit.
+    </h2>
+    <h5 class="text-center">
+      What is your main focus today?
+    </h5>
+    <form #tasksForm="ngForm" style="margin-top: 20px" action="" (ngSubmit)="onTasksSubmit()">
+      <div class="row">
+        <div class="form-group col-md-3">
+          <input type="text" placeholder="Enter title" name="task" id="task" class="form-control input_task_title"
+            #task="ngModel" [(ngModel)]="tasksModel.title" [class.is-invalid]="task.invalid && task.touched"
+            [class.is-valid]="task.valid && task.touched" required />
+        </div>
+        <div class="form-group col-md-7">
+          <input type="text" placeholder="Enter description" name="description" id="description"
+            class="form-control input_task_description" #description="ngModel" [(ngModel)]="tasksModel.description"
+            [class.is-invalid]="description.invalid && description.touched"
+            [class.is-valid]="description.valid && description.touched" required />
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-outline-primary" [disabled]="tasksForm.form.invalid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row" *ngIf="filtersLoaded | async; else else_block">
+  <div class="col-md-6 offset-md-3">
+    <div class="tasks-container">
+      <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-6">
+          <span (click)="deleteAll()" class="delete-all">
+            <i class="fa fa-trash-alt"></i> Delete All
+          </span>
+        </div>
+        <div class="col-md-6">
+          <p class="total-count">
+            Total: {{ tasks.length }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" *ngIf="tasks.length>0; else tasks_else" [@fade]="tasks.length">
+          <div class="tasks mb-3" *ngFor="let task of tasks">
+            <div class="row">
+              <div class="col-md-11">
+                <h5>{{ task.title }}</h5>
+                <p>
+                  {{ task.description }}
+                </p>
+              </div>
+              <div class="col-md-1 cross">
+                <span (click)="onTasksClick(task.id)">&times;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #tasks_else>
+          <div class="col-md-12">
+            <div class="mb-3">
+              <p class="text-center">
+                No Tasks.
+              </p>
+            </div>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #else_block>
+  <div class="loader_custom">
+    <div class="loader">
+      <div class="snippet">
+        <div class="stage">
+          <div class="dot-spin"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
