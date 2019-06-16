@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12" *ngIf="tasks.length>0; else tasks_else" [@fade]="tasks.length">
+        <div class="col-md-12" *ngIf="tasks.length>0; else tasks_else">
           <div class="tasks mb-3" *ngFor="let task of tasks">
             <div class="row">
               <div class="col-md-11">

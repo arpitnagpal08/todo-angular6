@@ -66,23 +66,25 @@ export class DashboardComponent implements OnInit {
   }
 
   onTasksSubmit() {
-    const obj = {
-      id: this.tasks.length,
-      title: this.tasksModel.title,
-      description: this.tasksModel.description
+    if(this.tasksModel.title !== undefined && this.tasksModel.description !== undefined) {
+      const obj = {
+        id: this.tasks.length,
+        title: this.tasksModel.title,
+        description: this.tasksModel.description
+      }
+  
+      //activate loader 
+      this.filtersLoaded = Promise.resolve(false);
+      
+      // de-activate loader and insert task after 2 seconds
+      setTimeout(() => {
+        this.filtersLoaded = Promise.resolve(true);
+        this.tasks.unshift(obj);
+      }, 2000);
+  
+      // clear input fields
+      this.formValues.resetForm();
     }
-
-    //activate loader 
-    this.filtersLoaded = Promise.resolve(false);
-    
-    // de-activate loader and insert task after 2 seconds
-    setTimeout(() => {
-      this.filtersLoaded = Promise.resolve(true);
-      this.tasks.unshift(obj);
-    }, 2000);
-
-    // clear input fields
-    this.formValues.resetForm();
   }
 
 }
