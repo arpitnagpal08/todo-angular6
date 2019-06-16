@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { Tasks } from '../tasks';
-import { slideAnimate } from '../animation';
+import { slideAnimate, fade } from '../animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   animations: [
-    slideAnimate
+    slideAnimate,
+    fade
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -48,6 +49,12 @@ export class DashboardComponent implements OnInit {
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit 6."
     },
   ]
+
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+        
+  }
 
   constructor() { }
 

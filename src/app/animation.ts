@@ -1,14 +1,19 @@
-import { trigger, state, style, transition, animate, stagger, keyframes, query } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 
-export let slideAnimate = trigger('fade', [
-  transition('* => *', [
-    query('*', style({ opacity: 0 }), { optional: true }),
-    query('*', stagger('10ms', [
-      animate('1s ease-in-out', keyframes([
-        style({ opacity: 0, transform: 'translate(-75px)', offset: 0 }),
-        style({ opacity: .5, transform: 'translate(35px)', offset: 0.3 }),
-        style({ opacity: 1, transform: 'translate(0)', offset: 1 })
-      ]))
+export let fade = trigger('fade', [
+  transition(':enter', [
+    style({transform: 'translateY(-100%)'}),
+    animate('1s ease-in-out',  keyframes([
+      style({ opacity: 0, transform: 'translateY(-100%)', offset: 0 }),
+      style({ opacity: .5, transform: 'translateY(-50%)', offset: 0.5 }),
+      style({ opacity: 1, transform: 'translateY(0%)', offset: 1 })
     ]))
+  ]),
+]);
+
+export let slideAnimate = trigger('slideInOut', [
+  transition(':leave', [
+    style({transform: 'translateX(0%)'}),
+    animate('500ms ease-in', style({transform: 'translateX(-100%)'}))
   ])
 ])
