@@ -3,18 +3,119 @@
   justify-content: center;
 }
 
-.tasks-container {
-  display: inline-block;
-  li {
-    list-style-type: decimal;
-    text-align: left;
-  }
+.input_task_title, .input_task_description {
+  background: 0;
+  border: 0;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  outline: 0;
+  transition: border-color .2s ease;
 }
 
-.tasks {
-  cursor: pointer;
+::placeholder { /* Firefox, Chrome, Opera */ 
+  color: #cccccc; 
+} 
 
-  &:hover {
-    color: #ccc;
+:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
+  color: #cccccc; 
+} 
+
+::-ms-input-placeholder { /* Microsoft Edge */ 
+  color: #cccccc; 
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.btn-outline-primary {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.total-count {
+  text-align: right;
+  color: #cccccc;
+}
+
+.delete-all {
+  cursor: pointer; 
+  color: #cccccc;
+}
+
+.delete-all:hover, .total-count:hover {
+  color: #ffffff;
+}
+
+.tasks-container {
+  // display: inline-block;
+  margin-top: 10px;
+  .tasks {
+    border-bottom: 1px solid #cccccc;
+    padding: 5px 0 0 10px;
+    color: #ffffff;
+    transition: .2s ease-in-out;
+    cursor: pointer;
+
+    -webkit-box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+
+    h5 {
+      display: inline-block;
+      width: 10%;
+    }
+    .cross {
+      text-align: center;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      display: none;
+      span {
+        font-size: 24px;
+        line-height: 0px;
+      }
+    }
+  }
+
+
+  .tasks {
+    text-align: center;
+  }
+
+  /* EVEN TODOS */
+
+  // .tasks:nth-child(2n) {
+  //   // text-align: right;
+  //   font-size: 10px;
+  //   // transform: perspective(1100px) rotateY(-45deg) translateZ(0);
+  //   backface-visibility: hidden;
+  //   filter: blur(0);
+  //   -webkit-filter: blur(0);
+  //   -webkit-font-smoothing: subpixel-antialiased;
+  // }
+  
+  /* ODD TODOS */
+
+  // .tasks:nth-child(2n+1) {
+  //   font-size: 10px;
+  //   // transform: perspective(1100px) rotateY(45deg) translateZ(0);
+  //   backface-visibility: hidden;
+  //   filter: blur(0);
+  //   -webkit-filter: blur(0);
+  //   -webkit-font-smoothing: subpixel-antialiased;
+  // }
+
+  .tasks:hover {
+    transition: .2s ease-in-out;
+    transform: scale(1.1);
+    // border-left: 1px solid red;
+    border-bottom: 1px solid red;
+    -webkit-box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 15px -2px rgba(0,0,0,0.75);
+    .cross {
+      display: block;
+    }
   }
 }

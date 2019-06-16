@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Tasks } from '../tasks';
+import { slideAnimate } from '../animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    slideAnimate
+  ]
 })
 export class DashboardComponent implements OnInit {
 
@@ -46,6 +50,10 @@ export class DashboardComponent implements OnInit {
   ]
 
   constructor() { }
+
+  deleteAll() {
+    this.tasks = [];
+  }
 
   ngOnInit() {
     this.filtersLoaded = Promise.resolve(true);
