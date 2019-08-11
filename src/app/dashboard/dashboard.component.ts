@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Tasks } from '../tasks';
 import { slideAnimate, fade } from '../animation';
+import { Setting } from '../constants';
+import { TodoService } from '../todo.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +19,11 @@ export class DashboardComponent implements OnInit {
   filtersLoaded: Promise<boolean>;
   tasksModel = new Tasks();
   @ViewChild('tasksForm') formValues;
+
+  user = '';
+
+  sort: number = Setting.ASC;
+  Setting = Setting
 
   tasks = [
     {
@@ -53,10 +61,15 @@ export class DashboardComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-        
+
   }
 
-  constructor() { }
+  constructor(private _dashboardService: TodoService, private toastr: ToastrService) {
+    let _userData = localStorage.getItem('USER');
+    if (_userData) {
+      this.user = JSON.parse(_userData);
+    }
+  }
 
   deleteAll() {
     this.tasks = [];
@@ -66,32 +79,52 @@ export class DashboardComponent implements OnInit {
     this.filtersLoaded = Promise.resolve(true);
   }
 
-  onTasksClick(id) {
+  removeTask(id) {
     let tasksObj = this.tasks.find(o => o.id === id);
     let index = this.tasks.indexOf(tasksObj);
     this.tasks.splice(index, 1);
   }
 
   onTasksSubmit() {
-    if(this.tasksModel.title !== undefined && this.tasksModel.description !== undefined) {
+    if (this.tasksModel.title !== undefined && this.tasksModel.description !== undefined) {
       const obj = {
-        id: this.tasks.length,
+        id: this.tasks.length + 1,
         title: this.tasksModel.title,
         description: this.tasksModel.description
       }
-  
+
       //activate loader 
       this.filtersLoaded = Promise.resolve(false);
-      
+
       // de-activate loader and insert task after 2 seconds
       setTimeout(() => {
         this.filtersLoaded = Promise.resolve(true);
-        this.tasks.unshift(obj);
+        this.sort === this.Setting.ASC ? this.tasks.push(obj) : this.tasks.unshift(obj);
       }, 2000);
-  
       // clear input fields
       this.formValues.resetForm();
     }
+  }
+
+  orderBy(condition) {
+    switch (condition) {
+      case this.Setting.ASC:
+        this.tasks.sort((a, b) => {
+          return a.id > b.id ? 1 : -1
+        })
+        this.sort = this.Setting.ASC;
+        break;
+      case this.Setting.DESC:
+        this.tasks.sort((a, b) => {
+          return a.id < b.id ? 1 : -1
+        })
+        this.sort = this.Setting.DESC;
+        break;
+    }
+  }
+
+  changeUsername(event) {
+    console.log(event)
   }
 
 }

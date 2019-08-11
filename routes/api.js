@@ -10,6 +10,6 @@ const services = require("../services/api");
 router.post("/login", services.LOGIN);
 router.post("/register", services.REGISTER);
 
-router.get("/profile", utils.verifyToken, services.PROFILE);
+router.post("/profile", utils.verifyToken, services.PROFILE);
 
 module.exports = router;

@@ -1,0 +1,49 @@
+<div class="row outer-container" *ngIf="filtersLoaded | async; else else_block">
+  <div class="col-6 inner-container">
+    <img class="profile-image" src="../../assets/images/account_created.png" alt="">
+    <div class="col-6 offset-6 text-right action_container">
+      <ul class="actions_buttons">
+        <li>
+          <button type="button" class="btn btn-link">Edit Profile</button>
+        </li>
+        <li>
+          <button type="button" class="btn btn-link text-danger">Logout</button>
+        </li>
+      </ul>
+    </div>
+    <div class="profile-container">
+      <div class="row">
+        <div class="col-12 table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>{{ userProfile?.name }}</td>
+              </tr>
+              <tr>
+                <td>Date Of Birth</td>
+                <td>{{ userProfile?.date_of_birth }}</td>
+              </tr>
+              <tr>
+                <td>Total Tasks</td>
+                <td>{{ userProfile?.total_tasks }} <a (click)="getAllTasks()" href="javascript:void(0);">View All</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #else_block>
+  <div class="loader_custom">
+    <div class="loader">
+      <div class="snippet">
+        <div class="stage">
+          <div class="dot-spin"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

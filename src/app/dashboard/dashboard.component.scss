@@ -3,6 +3,14 @@
   justify-content: center;
 }
 
+.active {
+  border-bottom: 1px solid red;
+}
+
+.sortKeys {
+  cursor: pointer;
+}
+
 .input_task_title, .input_task_description, .input_submit {
   background: 0;
   // border: 0;
@@ -51,7 +59,7 @@
 .tasks-container {
   // display: inline-block;
   margin-top: 10px;
-  .tasks {
+  .tasks .row {
     border-bottom: 1px solid #cccccc;
     border-radius: 10px;
     padding: 5px 0 0 10px;
@@ -108,7 +116,7 @@
   //   -webkit-font-smoothing: subpixel-antialiased;
   // }
 
-  .tasks:hover {
+  .tasks .row:hover {
     transition: .2s ease-in-out;
     transform: scale(1.1);
     // border-left: 1px solid red;

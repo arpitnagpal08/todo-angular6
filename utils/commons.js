@@ -13,8 +13,9 @@ function verifyToken(req, res, next) {
     message: "",
     data: {}
   }
-  const token = jwt.verify(req.headers.authorization, secretKey, (error, result) => {
-    if(error) {
+  
+  const token = jwt.verify(req.body.token, secretKey, (error, result) => {
+    if (error) {
       obj.apiReference = "verifyToken";
       obj.message = error.message;
       return res.json(obj)

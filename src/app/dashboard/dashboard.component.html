@@ -1,7 +1,7 @@
 <div class="row outer-container mt-5">
   <div class="col-md-6">
     <h2 class="text-center">
-      Good Evening, Arpit.
+      Good Evening, <span contenteditable="true" (blur)="changeUsername($event)">{{user.data.name}}</span>.
     </h2>
     <h5 class="text-center">
       What is your main focus today?
@@ -20,7 +20,8 @@
             [class.is-valid]="description.valid && description.touched" required />
         </div>
         <div class="col-md-2">
-          <button type="submit" class="btn btn-outline-primary input_submit" [disabled]="tasksForm.form.invalid">Submit</button>
+          <button type="submit" class="btn btn-outline-primary input_submit"
+            [disabled]="tasksForm.form.invalid">Submit</button>
         </div>
       </div>
     </form>
@@ -31,12 +32,21 @@
   <div class="col-md-6 offset-md-3">
     <div class="tasks-container">
       <div class="row" style="margin-bottom: 15px;">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <span (click)="deleteAll()" class="delete-all">
             <i class="fa fa-trash-alt"></i> Delete All
           </span>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4 text-center">
+          <span (click)="orderBy(0)" class="sortKeys" [class.active]="sort === Setting.ASC">
+            <i class="fa fa-sort-alpha-down"></i>
+          </span>
+          |
+          <span (click)="orderBy(1)" class="sortKeys" [class.active]="sort === Setting.DESC">
+            <i class="fa fa-sort-alpha-up"></i>
+          </span>
+        </div>
+        <div class="col-md-4">
           <p class="total-count">
             Total: {{ tasks.length }}
           </p>
@@ -53,7 +63,7 @@
                 </p>
               </div>
               <div class="col-md-1 cross">
-                <span (click)="onTasksClick(task.id)">&times;</span>
+                <span (click)="removeTask(task.id)">&times;</span>
               </div>
             </div>
           </div>
